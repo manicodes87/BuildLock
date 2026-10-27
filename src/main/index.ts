@@ -2,6 +2,9 @@ import { app, shell, BrowserWindow } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import OverlayWindow from './windows/overlay'
+
+let overlayWindow: OverlayWindow | null = null
 
 function createWindow(): void {
   // Create the browser window.
@@ -19,6 +22,10 @@ function createWindow(): void {
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
+  })
+
+  mainWindow.on('closed', () => {
+    overlayWindow?.destroy()
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
@@ -51,11 +58,20 @@ app.whenReady().then(() => {
 
   createWindow()
 
+  // Create overlay window
+  overlayWindow = OverlayWindow.getInstance()
+  overlayWindow.create()
+  overlayWindow.setOverlayIpcHandles()
+
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
+})
+
+app.on('before-quit', () => {
+  overlayWindow?.destroy()
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common

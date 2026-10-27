@@ -1,7 +1,11 @@
 function App(): React.JSX.Element {
+  const toggleOverlay = (): void => {
+    window.api.overlay.toggleOverlay()
+  }
+
   return (
     <>
-      <h1>Hello world!</h1>
+      <button onClick={toggleOverlay}>Toggle Overlay</button>
     </>
   )
 }
