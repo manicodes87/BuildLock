@@ -1,0 +1,36 @@
+:root {
+  --onyx: #0a0a0a;
+  --charcoal: #171717;
+  --graphite: #262626;
+  --slate: #404040;
+  --silver: #8a8a8a;
+  --platinum: #d4d4d4;
+  --ivory: #f5f5f5;
+}
+
+:root {
+  background-color: var(--charcoal);
+  color: var(--platinum);
+}
+
+@font-face {
+  font-family: 'JetbrainsMono';
+  src: url('../public/fonts/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf');
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+body {
+  min-height: 100vh;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  font-family: 'JetbrainsMono';
+}
